@@ -1,0 +1,28 @@
+version: "2.1"
+services:
+  nginx:
+    container_name: my-nginx
+    image: nginx
+    ports:
+      - "8007:80"
+    volumes:
+      # fixme: change me!!!
+      - /data/app/www:/usr/share/nginx/html
+      - ./nginx/conf:/etc/nginx/conf.d
+      - ./nginx/logs:/var/log/nginx
+    networks:
+      - php-network
+  php7:
+    container_name: my-php
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      # fixme: change me!!!
+      - /data/app/www:/www
+    networks:
+      - php-network
+
+networks:
+  php-network:
+
